@@ -26,6 +26,7 @@ const Coin = styled.li`
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 10px;
+ 
     a {
         display: flex;
         align-items: center;
@@ -33,8 +34,7 @@ const Coin = styled.li`
     &:hover {
         a {    
             transition: color 0.2s ease-in;
-            display: block;
-            color: ${(props) => props.theme.accentColor};
+             color: ${(props) => props.theme.accentColor};
         }
     }
 `;
