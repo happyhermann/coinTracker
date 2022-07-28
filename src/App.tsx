@@ -1,6 +1,11 @@
-import React from 'react';
+import React  from 'react';
 import Router from './routes/Router';
 import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from './theme';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './atom';
  
 const GlobalStyle = createGlobalStyle`
       body {
@@ -19,22 +24,41 @@ const GlobalStyle = createGlobalStyle`
 
 `
  
+
  
 
  
 function App() {
- 
- 
+  // const [isDark, setIsDark] = useState(false)
+  // const toggleDark = () => setIsDark(current => !current)
+  // isDark가 true면 false를 return, false면 true를 return
+  const isDark = useRecoilValue(isDarkAtom)
+  
+  
   return (
     <>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}> 
+      <GlobalStyle/>
+      {/* <Router isDark={isDark} toggleDark={toggleDark}/> */}
+      <Router />
+    </ThemeProvider>
 
-    <GlobalStyle/>
-    <Router/>
     </>
     
  
    )
 }
+
+
+//global state의 긴 여행
+
+// App (isDark, modifierFn)
+// => Router => Coins => (modifier)
+// => Router => Coin => Chart (isDark)
+
+//*문제는 절차가 까다롭다는 것, 직접 모든 곳으로 공유해야한다는 것이다.
+
+//##이럴때 state management를 사용하면 어떨까? redux, recoil
 
 
 export default App;

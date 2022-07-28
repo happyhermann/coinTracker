@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { Link } from "react-router-dom";
 
 import Progress from "../components/Progress";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atom";
 
 
 //  코인이 어떻게 생겼는지 타입스크립트에게 말할 수 있다
@@ -22,10 +24,11 @@ const CoinList = styled.ul``;
 
 const Coin = styled.li`
     background-color: white;
-    color: ${props => props.theme.bgColor};
+    color: ${props => props.theme.textColor};
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 10px;
+    font-weight: 500;
  
     a {
         display: flex;
@@ -103,7 +106,18 @@ const coins = [
       type: string,
   }
 
+  // interface ICoinsProps {
+  //   toggleDark: () => void;
+  // }
+ 
+
 function Coins () {
+    const setDarkAtom = useSetRecoilState(isDarkAtom)
+    const toggleDarkAtom = () => setDarkAtom(prev => !prev)
+    // useSetRecoilState는 atom의 value값을 바꿔주는 역할을 하는 함수
+    // setDarkAtom은 value를 설정하는 function == setState와 같은 방식
+
+    //* prev => !prev 이전 value를 가져와 반대의 value를 return한다는 소리 */
     const [coins, setCoins] = useState<CoinInterface[]>([]);
     // 받아온 api data를 받는 useState
     const [loading, setLoading] = useState(true);
@@ -131,6 +145,8 @@ function Coins () {
     <Container>
         <Header>
             <Title>코인</Title>
+            <button onClick={toggleDarkAtom}>Toggle Mode</button>
+            {/* <button onClick={toggleDark}>Toggle Dark Mode</button> */}
           </Header>
          {loading ? (
          <Loader>

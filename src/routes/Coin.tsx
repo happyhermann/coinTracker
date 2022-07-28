@@ -3,12 +3,14 @@ import { useLocation, useParams } from "react-router-dom"
 
 import styled from "styled-components";
 import Progress from "../components/Progress";
+import Chart from "./Chart";
 
 
 const Container = styled.div`
 padding:0px 20px;
 max-width: 480px;
 margin: 0 auto;
+color: ${props => props.theme.textColor};
 
 `;
 
@@ -34,7 +36,7 @@ const Loader = styled.div`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props => props.theme.bgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -129,6 +131,9 @@ interface PriceData {
     };
   }
 
+  // interface ICoinProps {
+  //   isDark: boolean;
+  // }
  
 
 function Coin () {   
@@ -222,6 +227,8 @@ function Coin () {
                       <span>{priceInfo?.max_supply}</span>
                     </OverviewItem>
                   </Overview>
+                  <Chart />
+
                   </> 
                   )}
         </Container>
